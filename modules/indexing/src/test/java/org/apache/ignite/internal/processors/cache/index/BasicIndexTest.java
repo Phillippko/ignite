@@ -1614,6 +1614,7 @@ public class BasicIndexTest extends AbstractIndexingCommonTest {
         assertEquals(pkInlineSize, ((H2TreeIndex)tbl.getIndex("_key_PK")).inlineSize());
         assertEquals(affInlineSize, ((H2TreeIndex)tbl.getIndex("AFFINITY_KEY")).inlineSize());
     }
+
     /** */
     @Test
     @WithSystemProperty(key = IGNITE_MAX_INDEX_PAYLOAD_SIZE, value = Integer.MAX_VALUE + "")
@@ -1643,7 +1644,7 @@ public class BasicIndexTest extends AbstractIndexingCommonTest {
         int idxInlineSize = MAX_INLINE_SIZE + 1;
 
         String warnMsg = "Explicit INLINE_SIZE exceeds maximum size. Ignoring " +
-                "[index=SOME_IDX, explicitInlineSize=" + idxInlineSize + ", maxInlineSize=" + MAX_INLINE_SIZE + "]";
+                "[index=PUBLIC.TEST.SOME_IDX, explicitInlineSize=" + idxInlineSize + ", maxInlineSize=" + MAX_INLINE_SIZE + "]";
 
         LogListener lsnr = LogListener.matches(warnMsg).build();
 

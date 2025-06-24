@@ -516,9 +516,6 @@ public class InlineIndexTree extends BPlusTree<IndexRow, IndexRow> {
         return grpCtx;
     }
 
-    /** Default value for {@code IGNITE_MAX_INDEX_PAYLOAD_SIZE} */
-    public static final int IGNITE_MAX_INDEX_PAYLOAD_SIZE_DEFAULT = 64;
-
     /**
      * @return Inline size.
      * @throws IgniteCheckedException If failed.

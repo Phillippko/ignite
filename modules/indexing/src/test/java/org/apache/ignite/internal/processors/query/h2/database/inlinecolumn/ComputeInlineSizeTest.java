@@ -153,11 +153,11 @@ public class ComputeInlineSizeTest extends AbstractIndexingCommonTest {
     /** */
     @Test
     public void testMaxInlineSizeIsUsedWhenExceeded() {
-        query("create table TABLE (id long primary key, str varchar) with \"cache_name=" + CACHE + "\";");
-        query(String.format("CREATE INDEX IDX1 ON T1(STR) INLINE_SIZE 1000"));
+        query("create table T1 (id long primary key, str varchar) with \"cache_name=" + CACHE + "\";");
+        query("CREATE INDEX IDX1 ON T1(STR) INLINE_SIZE 1000");
 
         InlineIndexImpl idx = (InlineIndexImpl)
-                ignite.context().indexProcessor().index(new IndexName("SQL_PUBLIC_T1", "PUBLIC", "T1", "IDX1"));
+                ignite.context().indexProcessor().index(new IndexName(CACHE, "PUBLIC", "T1", "IDX1"));
 
         assertEquals(MAX_INLINE_SIZE, idx.inlineSize());
 
@@ -186,7 +186,7 @@ public class ComputeInlineSizeTest extends AbstractIndexingCommonTest {
         expInlineSize.put("PERSON_STR_IDX",
             9 + InlineIndexTree.IGNITE_VARIABLE_TYPE_DEFAULT_INLINE_SIZE);
         expInlineSize.put("PERSON_STRPRECBIG_IDX",
-            InlineIndexTree.IGNITE_MAX_INDEX_PAYLOAD_SIZE_DEFAULT);
+            MAX_INLINE_SIZE);
         // 3 is for storing info (type, length) of inlined key.
         expInlineSize.put("PERSON_STRPREC_IDX",
             9 + InlineIndexTree.IGNITE_VARIABLE_TYPE_DEFAULT_INLINE_SIZE + 10 + 3);
